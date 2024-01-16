@@ -19,7 +19,16 @@ Queue.prototype.isEmpty = function() {
 }
 
 Queue.prototype.peek = function() {
-  return !this.isEmpty() ? this.elements : undefined;
+  return !this.isEmpty() ? this.elements[0] : undefined;
+}
+
+Queue.prototype.executeTask = function(){
+  while(!this.isEmpty()){
+    console.log(`Executando task: ${11 - this.elements.length}. o Valor da task é ${this.elements}`)
+    this.dequeue();
+  }
+
+  console.log('tasks finalizadas')
 }
 
 let task = new Queue()
@@ -28,8 +37,4 @@ for (let i = 0; i < 10; i++) {
   task.enqueue(i)
 }
 
-console.log('task ->', task.peek())
-task.dequeue()
-console.log('task ->', task.peek())
-console.log('task ->', task.enqueue(100))
-console.log('task ->', task.peek())
+task.executeTask()
