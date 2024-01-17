@@ -24,29 +24,33 @@ Queue.prototype.peek = function () {
 
 Queue.prototype.executeTask = async function () {
   while (!this.isEmpty()) {
-    const promise = this.elements[0]
-    const result = await promise;
-    console.log('result', result)
-    this.dequeue()
+    const promise = this.elements[0];
+    try {
+      const result = await promise;
+      console.log('result', result);
+      this.dequeue();
+    } catch (error) {
+      console.error('error', error);
+      this.dequeue();
+    }
   }
 
-  console.log('tasks finalizadas')
+  console.log('tasks finalizadas');
 }
 
-function testPromise(){
-  return new Promise((resolve,reject)=>{
-    setTimeout(()=> {
+function testPromise() {
+  const secondRandom = Math.random() * (10000 - 2000 + 1) + 2000
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
       resolve('teste')
-    }, 2000)
-  })  
+    }, secondRandom)
+  })
 }
 
 let task = new Queue()
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 1000; i++) {
   task.enqueue(testPromise())
 }
-
-// console.log(task.peek())
 
 task.executeTask()
