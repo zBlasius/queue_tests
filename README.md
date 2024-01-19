@@ -1,2 +1,2 @@
 # queue_tests
-Repositório destinado a testes com o pattner "Queue"
+Repositório destinado a testes com o partner "Queue"
